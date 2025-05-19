@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-backend
+  labels:
+    app: app-backend
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: app-backend
+  template:
+    metadata:
+      labels:
+        app: app-backend
+    spec:
+      containers:
+        - name: app-backend-container
+          image: containers.github.azure.cloud/app-backend-12345
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "250m"
+            limits:
+              memory: "256Mi"
+              cpu: "500m"
+          env:
+            - name: ENV
+              value: "production"
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 10
+            periodSeconds: 20
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 5
+            periodSeconds: 10
