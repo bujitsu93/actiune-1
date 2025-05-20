@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: app-backend-container
-          image: containers.github.azure.cloud/app-backend-999999
+          image: containers.github.azure.cloud/app-backend-e85c235
           ports:
             - containerPort: 80
           resources:
